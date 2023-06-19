@@ -55,7 +55,7 @@
 ### 📜 ChangeLog
 
 ```diff
-v0.0.1 ⋮ 12/06/2023
+v0.0.1 ⋮ 19/06/2023
 ! Initial Release
 ```
 
