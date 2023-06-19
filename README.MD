@@ -1,7 +1,7 @@
 <div align="center">
   <kbd style="box-shadow: 0 0 10px #fff;">
   <a href="https://github.com/Sysys242/Discord-Token-Generator">
-    <img src="https://cdn.discordapp.com/attachments/1106955359953879122/1106955444657856532/lTLs93paOg.gif" alt="Logo" style="width: 110%; height: 110%; box-shadow: 0 0 10px #000;">
+    <img src="https://cdn.discordapp.com/attachments/1120315421766193253/1120454154721181737/image.png" alt="Logo" style="width: 110%; height: 110%; box-shadow: 0 0 10px #000;">
   </a>
   </kbd>
 
