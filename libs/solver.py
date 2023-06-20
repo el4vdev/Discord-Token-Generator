@@ -1,6 +1,6 @@
 import requests, json
 
-keyCap = json.load(open('../config.json', 'r').read())['capsolver-key']
+keyCap = json.load(open('./config.json', 'r').read())['capsolver-key']
 
 def payload(service:str="capsolver.com", proxy:str=None, user_agent:str=None) -> None:
     p = {
