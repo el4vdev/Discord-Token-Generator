@@ -1,7 +1,7 @@
-import tls_client, base64, json
-import requests, re, time, random
-import websocket, os, threading
-import ctypes
+import tls_client, random, requests
+import re, json, base64
+import ctypes, time, websocket
+import os, threading
 
 from datetime import timedelta, datetime
 from colorama import Fore
@@ -19,7 +19,6 @@ names = open('input/names.txt', "r", encoding="utf-8").read().splitlines()
 proxies = open('input/proxies.txt', "r", encoding="utf-8").read().splitlines()
 config = json.loads(open('config.json', 'r').read())
 locked, unlocked, total = 0, 0, 0
-
 
 def updateTitle():
     global total, locked, unlocked
@@ -63,47 +62,43 @@ class Output:
             base += f"{Fore.RESET} {arg}"
         print(base)
 
-class Discord():
+class Discord:
     def __init__(self) -> None:
         self.session = tls_client.Session(
-            client_identifier="chrome112",
-            random_tls_extension_order=True
+            client_identifier="chrome_110",
         )
-
+        
         self.session.headers = {
             'authority': 'discord.com',
             'accept': '*/*',
-            'accept-language': 'en-US,en;q=0.9,it;q=0.8',
-            'content-type': 'application/json',
-            'origin': 'https://discord.com',
+            'accept-language': 'fr-FR,fr;q=0.9',
             'referer': 'https://discord.com/',
-            'sec-ch-ua': 'Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114',
+            'sec-ch-ua': '"Not.A/Brand";v="8", "Chromium";v="114", "Brave";v="114"',
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"Windows"',
             'sec-fetch-dest': 'empty',
             'sec-fetch-mode': 'cors',
             'sec-fetch-site': 'same-origin',
+            'sec-gpc': '1',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-            'x-track': 'eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzExNC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiYnJvd3Nlcl92ZXJzaW9uIjoiMTE0LjAuMC4wIiwib3NfdmVyc2lvbiI6IjEwIiwicmVmZXJyZXIiOiJodHRwczovL2Rpc2NvcmQuY29tLyIsInJlZmVycmluZ19kb21haW4iOiJkaXNjb3JkLmNvbSIsInJlZmVycmVyX2N1cnJlbnQiOiIiLCJyZWZlcnJpbmdfZG9tYWluX2N1cnJlbnQiOiIiLCJyZWxlYXNlX2NoYW5uZWwiOiJzdGFibGUiLCJjbGllbnRfYnVpbGRfbnVtYmVyIjoyMTE4MTEsImNsaWVudF9ldmVudF9zb3VyY2UiOm51bGx9',
+            'x-track': 'eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwic3lzdGVtX2xvY2FsZSI6ImZyLUZSIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzExNC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiYnJvd3Nlcl92ZXJzaW9uIjoiMTE0LjAuMC4wIiwib3NfdmVyc2lvbiI6IjEwIiwicmVmZXJyZXIiOiIiLCJyZWZlcnJpbmdfZG9tYWluIjoiIiwicmVmZXJyZXJfY3VycmVudCI6IiIsInJlZmVycmluZ19kb21haW5fY3VycmVudCI6IiIsInJlbGVhc2VfY2hhbm5lbCI6InN0YWJsZSIsImNsaWVudF9idWlsZF9udW1iZXIiOjk5OTksImNsaWVudF9ldmVudF9zb3VyY2UiOm51bGx9',
         }
 
-
         self.prop = {
-            "os": "Windows",
-            "browser": "Chrome",
-            "device": "",
-            "system_locale": 'fr-FR',
-            "browser_user_agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
-            "browser_version": '112.0.0',
-            "os_version": "10",
-            "referrer": "",
-            "referring_domain": "",
-            "referrer_current": "",
-            "referring_domain_current": "",
-            "release_channel": "stable",
-            "client_build_number": buildNumb,
-            "client_event_source": None,
-            "design_id": 0
+            "os":"Windows",
+            "browser":"Chrome",
+            "device":"",
+            "system_locale":"fr-FR",
+            "browser_user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+            "browser_version":"114.0.0.0",
+            "os_version":"10",
+            "referrer":"",
+            "referring_domain":"",
+            "referrer_current":"",
+            "referring_domain_current":"",
+            "release_channel":"stable",
+            "client_build_number":buildNumb,
+            "client_event_source":None
         }
         self.super = base64.b64encode(json.dumps(self.prop, separators=(',', ':')).encode()).decode()
 
@@ -115,20 +110,21 @@ class Discord():
         }
     
     def getFingerprint(self) -> str:
-        res = self.session.get(
+        response = self.session.get(
             'https://discord.com/api/v9/experiments'
         )
-        self.session.cookies = res.cookies
-        return res.json()['fingerprint']
+        self.session.cookies.update(response.cookies)
+        return response.json()['fingerprint']
     
-    def createAccount(self, captchaKey) -> str:
+    def createAccount(self, captchaKey, fingerprint) -> str:
         payload = {
             'consent': True,
+            'fingerprint': fingerprint,
             'captcha_key': captchaKey,
-            'fingerprint': self.fingerprint,
             'username': random.choice(names),
         }
         if config['invite'] != "": payload['invite'] = config['invite']
+
         response = self.session.post(
             'https://discord.com/api/v9/auth/register',
             json=payload
@@ -139,21 +135,16 @@ class Discord():
             raise Exception(f'Rate Limited For {response["retry_after"]}s')
         else:
             raise Exception(str(response))
-    
-    def isLocked(self) -> bool:
-        return "You need to verify your account in order to perform this action." in self.session.get(
-            'https://discord.com/api/v9/users/@me/affinities/users',
-        ).text
+        
+    def isLocked(self):
+        return self.session.get(
+            'https://discord.com/api/v9/users/@me/burst-credits'
+        ).status_code != 200
     
     def generate(self) -> None:
         global total, locked, unlocked
-        self.fingerprint = self.getFingerprint()
-        self.session.headers.update({
-            "origin": "https://discord.com",
-            "x-fingerprint": self.fingerprint
-        })
+        fingerprint = self.getFingerprint()
 
-        startedSolving = time.time()
         captchaKey = None
         while captchaKey == None:
             solver = Solver(
@@ -162,13 +153,15 @@ class Discord():
                 siteUrl="discord.com"
             )
             captchaKey = solver.solveCaptcha()
-        #captchaKey = input('CapKey> ')
-        Output("INFO").log(f'Solved {captchaKey[:30]} in {round(time.time()-startedSolving)}s')
-
-        self.token = self.createAccount(captchaKey)
 
         self.session.headers.update({
-            "authorization": self.token,
+            "Origin": "https://discord.com",
+            "X-Fingerprint": fingerprint
+        })
+        token = self.createAccount(captchaKey, fingerprint)
+
+        self.session.headers.update({
+            "authorization": token,
             "cache-control": "no-cache",
             "pragma": "no-cache",
             "referer": "https://discord.com/channels/@me",
@@ -177,7 +170,7 @@ class Discord():
             "x-super-properties": self.super
         })
         self.session.headers.pop("x-track")
-        self.session.headers.pop("origin")
+        self.session.headers.pop("Origin")
 
         if not self.isLocked():
             self.session.proxies = {
@@ -186,10 +179,10 @@ class Discord():
             }
             ws = websocket.WebSocket()
             ws.connect('wss://gateway.discord.gg/?v=9')
-            ws.send(json.dumps({"op": 2, "d": {"token": self.token, "capabilities": 4093, "properties": self.prop, "presence": {"status": "online", "since": 0, "activities": [], "afk": False}, "compress": False, "client_state": {"guild_versions": {}, "highest_last_message_id": "0", "read_state_version": 0, "user_guild_settings_version": -1, "user_settings_version": -1, "private_channels_version": "0", "api_code_version": 0}}}))
+            ws.send(json.dumps({"op": 2, "d": {"token": token, "capabilities": 4093, "properties": self.prop, "presence": {"status": "online", "since": 0, "activities": [], "afk": False}, "compress": False, "client_state": {"guild_versions": {}, "highest_last_message_id": "0", "read_state_version": 0, "user_guild_settings_version": -1, "user_settings_version": -1, "private_channels_version": "0", "api_code_version": 0}}}))
             ws.send(json.dumps({"op": 4, "d": {"guild_id": None, "channel_id": None, "self_mute": True, "self_deaf": False,"self_video": False}}))
             added = ""
-            
+
             while True:
                 try:
                     #Set birth data + avatar if enabled
@@ -206,7 +199,7 @@ class Discord():
                         ws.close()
                         total += 1
                         locked += 1
-                        Output("ERROR").log(f'Locked Av [{self.token[:30]}*************************]')
+                        Output("ERROR").log(f'Locked Av [{token[:30]}*************************]')
                         return
                     break
                 except Exception:
@@ -228,7 +221,7 @@ class Discord():
                             ws.close()
                             locked += 1
                             total += 1
-                            Output("ERROR").log(f'Locked Hp [{self.token[:30]}*************************]')
+                            Output("ERROR").log(f'Locked Hp [{token[:30]}*************************]')
                             return
                     break
                 except Exception:
@@ -252,21 +245,21 @@ class Discord():
                             ws.close()
                             locked += 1
                             total += 1
-                            Output("ERROR").log(f'Locked Bio [{self.token[:30]}*************************]')
+                            Output("ERROR").log(f'Locked Bio [{token[:30]}*************************]')
                             return
                         break
                     except Exception:
                         pass
             total += 1
             unlocked += 1
-            open('tokens.txt', 'a').write(f'{self.token}\n')
-            Output("SUCCESS").log(f'Unlocked [{self.token[:30]}*************************]')
+            open('tokens.txt', 'a').write(f'{token}\n')
+            Output("SUCCESS").log(f'Unlocked [{token[:30]}*************************]')
             ws.close()
             Output("INFO2").log(f'Humanized: {added}')
         else:
             total += 1
             locked += 1
-            Output("ERROR").log(f'Locked [{self.token[:30]}*************************]')
+            Output("ERROR").log(f'Locked [{token[:30]}*************************]')
 
 def generate():
     global total, locked, unlocked
