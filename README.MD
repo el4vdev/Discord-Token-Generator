@@ -12,7 +12,7 @@
     <br />
     <a href="https://discord.gg/gamingchair">💬 Discord</a>
     ·
-    <a href="https://github.com/Sysys242/Discord-Token-Generator#-changelog">📜 ChangeLog</a>
+    <a href="https://github.com/Sysys242/Discord-Token-Generator#-changelog">📜 ChangeLog</a>.
     ·
     <a href="https://github.com/Sysys242/Discord-Token-Generator/issues">⚠️ Report Bug</a>
     ·
