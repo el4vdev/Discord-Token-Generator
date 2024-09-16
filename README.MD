@@ -5,7 +5,7 @@
   </a>
   </kbd>
 
-  <h1 align="center">Discord Token Generator - Capsolver - FRESH WORKING</h1>
+  <h1 align="center">Discord Token Generator - 17.9.24- Capsolver - FRESH WORKING & EASYYY</h1>
   <p align="center">
     A discord token generator, used it to sell it for 70$ src but since monkey are reselling it for 10$ and i don't get anythings, i just leak it :)
     <br />
